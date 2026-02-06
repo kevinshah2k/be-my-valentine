@@ -11,7 +11,7 @@
 
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #ffe6eb, #fdfbfb);
       height: 100vh;
       overflow: hidden;
@@ -23,16 +23,21 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      transition: opacity 0.6s ease;
+      text-align: center;
     }
 
     h1 {
       font-size: 3rem;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+    }
+
+    #subText {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      min-height: 1.5em;
     }
 
     .buttons {
-      position: relative;
       display: flex;
       gap: 30px;
     }
@@ -44,29 +49,22 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.1);
+      transition: transform 0.3s ease;
     }
 
     .yes {
-      background-color: #2bbecb;
+      background-color: #63BDA4;
     }
 
     .no {
       background-color: black;
-      position: absolute;
-      left: 200px;
     }
 
     /* Yay screen */
     .yay {
       display: none;
-      background: linear-gradient(135deg, #2bbecb, #70e1f5);
+      background: linear-gradient(135deg, #63BDA4, #9ad9c6);
       color: white;
-      text-align: center;
       animation: fadeIn 1s ease forwards;
     }
 
@@ -75,9 +73,14 @@
       animation: pop 0.6s ease infinite alternate;
     }
 
+    #countdown {
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+
     @keyframes pop {
       from { transform: scale(1); }
-      to { transform: scale(1.1); }
+      to { transform: scale(1.08); }
     }
 
     @keyframes fadeIn {
@@ -89,18 +92,29 @@
     .heart {
       position: absolute;
       bottom: -20px;
-      font-size: 24px;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.8;
+      font-size: 26px;
+      animation: floatUp 6s linear forwards;
+      opacity: 0.9;
     }
 
     @keyframes floatUp {
-      from {
-        transform: translateY(0);
-        opacity: 1;
-      }
       to {
         transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 14px;
+      animation: fall 4s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
         opacity: 0;
       }
     }
@@ -111,10 +125,12 @@
 
   <!-- QUESTION SCREEN -->
   <div id="question" class="screen">
-    <h1>Will you be my Valentine? 💖</h1>
+    <h1>Dearest Devanshi, will you be my Valentine? 💖</h1>
+    <div id="subText">Think carefully 😌</div>
+
     <div class="buttons">
-      <button class="btn yes" onclick="sayYes()">Yes</button>
-      <button class="btn no" id="noBtn">No</button>
+      <button class="btn yes" id="yesBtn" onclick="sayYes()">Yes</button>
+      <button class="btn no" id="noBtn" onclick="sayNo()">No</button>
     </div>
   </div>
 
@@ -122,38 +138,93 @@
   <div id="yay" class="screen yay">
     <h1>YAY!!! 💕🥰</h1>
     <p>You just made me the happiest person alive 💘</p>
+    <div id="countdown"></div>
   </div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const subText = document.getElementById("subText");
 
-    // Make "No" run away
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 100);
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    });
+    let noScale = 1;
+    let yesScale = 1;
+    let noClicks = 0;
 
-    // Yes click -> single-page transition
+    const messages = [
+      "Are you sure? 🥺",
+      "Like… REALLY sure? 😳",
+      "This feels like the wrong answer 😬",
+      "I’ll make it up to you, promise 💕",
+      "Okay now you’re just playing hard to get 😏",
+      "The Yes button is looking cute right now 👀",
+      "Last chance before I deploy puppy eyes 🐶🥺"
+    ];
+
+    function sayNo() {
+      noClicks++;
+
+      noScale *= 0.9;
+      yesScale *= 1.08;
+
+      noBtn.style.transform = `scale(${noScale})`;
+      yesBtn.style.transform = `scale(${yesScale})`;
+
+      subText.innerText = messages[Math.min(noClicks - 1, messages.length - 1)];
+    }
+
     function sayYes() {
       document.getElementById("question").style.display = "none";
       document.getElementById("yay").style.display = "flex";
       startHearts();
+      startConfetti();
+      startCountdown();
     }
 
-    // Floating hearts
     function startHearts() {
       setInterval(() => {
         const heart = document.createElement("div");
         heart.className = "heart";
         heart.innerText = "💖";
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
         document.body.appendChild(heart);
-
-        setTimeout(() => heart.remove(), 7000);
+        setTimeout(() => heart.remove(), 6000);
       }, 300);
+    }
+
+    function startConfetti() {
+      for (let i = 0; i < 120; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.top = "-20px";
+        confetti.style.backgroundColor =
+          ["#ffffff", "#ffd1dc", "#63BDA4"][Math.floor(Math.random() * 3)];
+        confetti.style.animationDuration = Math.random() * 2 + 3 + "s";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+      }
+    }
+
+    function startCountdown() {
+      const countdownEl = document.getElementById("countdown");
+
+      let target = new Date(new Date().getFullYear(), 1, 14);
+      if (new Date() > target) {
+        target = new Date(new Date().getFullYear() + 1, 1, 14);
+      }
+
+      setInterval(() => {
+        const now = new Date();
+        const diff = target - now;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        countdownEl.innerText =
+          `Countdown to Valentine’s Day 💕: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }, 1000);
     }
   </script>
 
