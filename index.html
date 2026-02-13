@@ -89,16 +89,19 @@ h1 {
 <div class="screen">
 
 <h1>
-What is the name of the wielder of the Colossal Titan in season one of Attack on Titan?
+Valentine's Trivia Day 2 - 
 </h1>
+<h2>
+Who is the best Avenger?
+<h2>
 
-<div id="subText">Choose wisely 😌</div>
+<div id="subText">Go with your gut feeling 😌</div>
 
 <div class="buttons">
-  <button class="btn" onclick="wrongAnswer(this)">Burnttoast</button>
-  <button class="btn" id="correctBtn" onclick="correctAnswer()">Bertholdt</button>
-  <button class="btn" onclick="wrongAnswer(this)">Burrito</button>
-  <button class="btn" onclick="wrongAnswer(this)">Bangladesh</button>
+  <button class="btn" onclick="wrongAnswer(this)">Thor</button>
+  <button class="btn" onclick="wrongAnswer(this)">Iron Man</button>
+  <button class="btn" onclick="wrongAnswer(this)">Hulk</button>
+  <button class="btn" id="correctBtn" onclick="correctAnswer()">Captain America</button>
 </div>
 
 <div class="clueBox" id="clueBox"></div>
@@ -124,7 +127,7 @@ function wrongAnswer(button) {
     `scale(${correctScale})`;
 
   document.getElementById("subText").innerText =
-    "Close, but not quite right 🤔";
+    "The answer is so obvious 🤔";
 }
 
 function correctAnswer() {
@@ -140,7 +143,7 @@ function correctAnswer() {
 
   // Show today's clue
   document.getElementById("clueBox").innerText =
-    "Clue 1 of 3: -II 💌. Come back tommorrow for Clue 2";
+    "Clue 2 of 3: FE. Come back tommorrow for the final Clue 3 💌";
 }
 
 function startConfetti() {
