@@ -89,19 +89,19 @@ h1 {
 <div class="screen">
 
 <h1>
-Valentine's Trivia Day 2 - 
+Valentine's Trivia Day 3 - 
 </h1>
 <h2>
-Who is the best Avenger?
+What is the best Bollywood Movie of all time?
 <h2>
 
-<div id="subText">Go with your gut feeling 😌</div>
+<div id="subText">Pretty straight forward today 😌</div>
 
 <div class="buttons">
-  <button class="btn" onclick="wrongAnswer(this)">Thor</button>
-  <button class="btn" onclick="wrongAnswer(this)">Iron Man</button>
-  <button class="btn" onclick="wrongAnswer(this)">Hulk</button>
-  <button class="btn" id="correctBtn" onclick="correctAnswer()">Captain America</button>
+  <button class="btn" onclick="wrongAnswer(this)">Dhurandhar</button>
+  <button class="btn" onclick="wrongAnswer(this)">Dhoom 2</button>
+  <button class="btn" id="correctBtn" onclick="correctAnswer()">Om Shanti Om</button>
+  <button class="btn" onclick="wrongAnswer(this)">Rab Ne Bana Di Jodi</button>
 </div>
 
 <div class="clueBox" id="clueBox"></div>
@@ -127,7 +127,7 @@ function wrongAnswer(button) {
     `scale(${correctScale})`;
 
   document.getElementById("subText").innerText =
-    "The answer is so obvious 🤔";
+    "Lock in darling 🤔";
 }
 
 function correctAnswer() {
@@ -143,7 +143,7 @@ function correctAnswer() {
 
   // Show today's clue
   document.getElementById("clueBox").innerText =
-    "Clue 2 of 3: FE. Come back tommorrow for the final Clue 3 💌";
+    "All three clues: -II, FE, CHG. Once you figure it out meet me there at 9:30am GMT for our rootop ramen date night 😉";
 }
 
 function startConfetti() {
